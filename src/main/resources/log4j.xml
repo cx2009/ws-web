@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %p [%c] - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="log/jsxk.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} [%t]:%c:%L#%M() %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="SYNC_ROLLING_FILE" class="org.apache.log4j.AsyncAppender">
+        <param name="BufferSize" value="512" />
+        <param name="Blocking" value="false" />
+        <appender-ref ref="file"/>
+    </appender>
+
+    <category name="com.jsxk" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="SYNC_ROLLING_FILE"/>
+    </category>
+    <category name="org.apache.http" additivity="false">
+        <priority value="info"/>
+        <appender-ref ref="SYNC_ROLLING_FILE"/>
+    </category>
+    <category name="org.springframework" additivity="false">
+        <priority value="debug"/>
+        <appender-ref ref="SYNC_ROLLING_FILE"/>
+    </category>
+    <root>
+        <level value="debug"/>
+        <appender-ref ref="SYNC_ROLLING_FILE"/>
+    </root>
+</log4j:configuration>
