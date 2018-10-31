@@ -10,6 +10,7 @@ import com.jsxk.ws.common.UUIDUtils;
 import com.jsxk.ws.common.errorcode.ErrorCodes;
 import com.jsxk.ws.model.Bo.LogIn;
 import com.jsxk.ws.model.Bo.UserRegit;
+import com.jsxk.ws.model.Initialization;
 import com.jsxk.ws.model.UserInfor;
 import com.jsxk.ws.service.UserServcie;
 import com.jsxk.ws.utils.ControllerUtils;
@@ -177,7 +178,33 @@ public class UserController {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
 
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
 
+
+    }
+
+
+    @RequestMapping("/getInitialization")
+    public String getInitialization(@RequestParam("type") int type) {
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        try {
+
+            Initialization initialization = userServcie.getInitialization(type);
+            if(initialization ==null)
+
+            {
+                initialization = new Initialization();
+            }
+
+            resultJson.putPOJO("data", initialization);
+
+        } catch (Exception ex) {
+
+            log.error("初始化信息错误{}", ex);
+
+        }
 
         return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
 

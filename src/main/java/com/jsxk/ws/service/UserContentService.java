@@ -20,4 +20,7 @@ public interface UserContentService {
     Boolean modifyStore(int voidesId, int userId);
 
 
+
+
+
 }

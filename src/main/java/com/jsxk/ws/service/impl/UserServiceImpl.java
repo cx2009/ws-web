@@ -1,8 +1,10 @@
 package com.jsxk.ws.service.impl;
 
 import com.jsxk.ws.common.Reults;
+import com.jsxk.ws.dao.InitializationDao;
 import com.jsxk.ws.dao.UserInforDao;
 import com.jsxk.ws.model.Bo.UserQuery;
+import com.jsxk.ws.model.Initialization;
 import com.jsxk.ws.model.Po.UserRecords;
 import com.jsxk.ws.model.UserInfor;
 import com.jsxk.ws.service.UserServcie;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserServcie {
 
     @Autowired
     private UserInforDao userInforDao;
+
+    @Autowired
+    private InitializationDao initializationDao;
 
     @Override
     public Reults changePwd(String newPwd, UserInfor userInfor) {
@@ -225,6 +230,20 @@ public class UserServiceImpl implements UserServcie {
     @Override
     public UserInfor getUerInforByMail(String loginid) {
         return userInforDao.getUserinforByLoginId(loginid);
+    }
+
+    @Override
+    public Initialization getInitialization(int type) {
+
+        try {
+
+        }catch (Exception ex)
+
+        {
+
+        }
+
+        return  initializationDao.getInitialization(type);
     }
 
 

@@ -23,4 +23,8 @@ public interface AppManagerDao {
     List<AppMangers> getAppManagerList();
 
 
+    @Select("select t.name as name,t.remark as remark ,t.url as url ,t.imagesurl as imagesurl,  t.createtime as createtime   from app_manager t   where t.catalogueId=#{catalogId}")
+    List<com.jsxk.ws.model.Po.AppManager> getAppManagerByCataLogId(int catalogId);
+
+
 }

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public interface OrdersDao {
     @Update("update order set  orderstate=#{state} where orderid=#{orderId}")
     int updateOrder(int orderId, int state);
 
-     @Select("select * from orders where id = #{id} ")
-     Order getOrderById(int id);
+    @Select("select * from orders where id = #{id} ")
+    Order getOrderById(int id);
 
 }

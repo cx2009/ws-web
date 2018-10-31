@@ -2,6 +2,7 @@ package com.jsxk.ws.service;
 
 import com.jsxk.ws.common.Reults;
 import com.jsxk.ws.model.Bo.UserQuery;
+import com.jsxk.ws.model.Initialization;
 import com.jsxk.ws.model.Po.UserRecords;
 import com.jsxk.ws.model.UserInfor;
 import org.joda.time.DateTime;
@@ -35,6 +36,8 @@ public interface UserServcie {
     Reults checkUserPwd(String passworld, String userId);
 
     UserInfor getUerInforByMail(String loginid);
+
+    Initialization getInitialization(int type);
 
 
 }

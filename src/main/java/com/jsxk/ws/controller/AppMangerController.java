@@ -6,6 +6,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.jsxk.ws.common.errorcode.ErrorCodes;
 import com.jsxk.ws.model.AppManager;
+import com.jsxk.ws.model.Po.AppMangerList;
 import com.jsxk.ws.model.Po.AppMangers;
 import com.jsxk.ws.service.AppManagerService;
 import com.jsxk.ws.utils.ControllerUtils;
@@ -80,6 +81,32 @@ public class AppMangerController {
 
     }
 
+
+    @RequestMapping("/getApp")
+    public String getAppListByCataLog(@RequestParam("pageNum") int pagenum) {
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        try {
+            Page page = PageHelper.startPage(pagenum, 20);
+
+
+
+            List<AppMangerList> appMangers = appManagerService.getAppManagerListById();
+            resultJson.putPOJO("data", appMangers);
+            resultJson.put("pageNum", page.getPageNum());
+            resultJson.put("pageSize", page.getPageSize());
+
+        } catch (Exception ex) {
+            log.error("查询应用列表错误{}", ex);
+            resultJson.putPOJO("data", null);
+            return ControllerUtils.renderControllerResult(ErrorCodes.systemError(), resultJson);
+
+        }
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+    }
 
     @RequestMapping("/editApp")
     public String editApp(@RequestBody AppManager appManager) {

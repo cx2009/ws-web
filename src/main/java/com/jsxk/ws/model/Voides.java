@@ -36,4 +36,6 @@ public class Voides {
     private Boolean isDispaly;
 
     private int numlook;
+
+    private String img;
 }

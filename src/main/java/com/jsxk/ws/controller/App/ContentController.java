@@ -7,11 +7,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.jsxk.ws.common.AuthManager;
 import com.jsxk.ws.common.errorcode.ErrorCodes;
-import com.jsxk.ws.model.Blues;
-import com.jsxk.ws.model.Catalogue;
+import com.jsxk.ws.model.*;
 import com.jsxk.ws.model.Po.VoidesContent;
-import com.jsxk.ws.model.UserInfor;
-import com.jsxk.ws.model.Voides;
+import com.jsxk.ws.service.AppManagerService;
 import com.jsxk.ws.service.CatalogueService;
 import com.jsxk.ws.service.UserContentService;
 import com.jsxk.ws.service.VoidesService;
@@ -43,6 +41,9 @@ public class ContentController {
 
     @Autowired
     VoidesService voidesService;
+
+    @Autowired
+    AppManagerService appManagerService;
 
     /**
      * 获取轮播图
@@ -184,15 +185,15 @@ public class ContentController {
 
             Voides voides = voidesService.getVoidesById(id);
 
-            resultJson.putPOJO("voides", voides);
+            resultJson.putPOJO("video", voides);
 
             if (voides != null) {
 
                 Page page = PageHelper.startPage(0, limit);
 
-                List<Voides> voides1 = voidesService.getVoidesByCatalogId(voides.getCatalogid());
+                List<Voides> video1 = voidesService.getVoidesByCatalogId(voides.getCatalogid());
 
-                resultJson.putPOJO("data", voides1);
+                resultJson.putPOJO("data", video1);
 
             }
 
@@ -212,6 +213,81 @@ public class ContentController {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
 
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+    }
+
+    //观看次数
+    @RequestMapping("/addvideoNum")
+
+    public String addvoideoNum(@RequestParam("voideId") int voideId) {
+
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        try {
+
+            boolean result = voidesService.addVoidesNum(voideId);
+            if (result) {
+
+                resultJson.put("message", "操作成功");
+                resultJson.put("state", true);
+            }
+        } catch (Exception ex) {
+
+            log.error("更新观看次数错误{}", ex);
+
+        }
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+    }
+
+
+    @RequestMapping("/getNovel")
+    public String getNovel(@RequestParam("pageNum") int pageNum, @RequestParam("catalogId") int catalogId, @RequestParam("limit") int limit) {
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        try {
+
+            Page page = PageHelper.startPage(pageNum, limit);
+            List<Novel> novels = appManagerService.getNovelList(catalogId);
+
+            resultJson.put("pageNum", page.getPageNum());
+
+            resultJson.put("pagesize", page.getPageSize());
+
+            resultJson.putPOJO("date", novels);
+
+
+        } catch (Exception ex) {
+
+            log.error("查询小说错误{}", ex);
+        }
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+
+    }
+
+
+    @RequestMapping("/getNovelById")
+    public String getNovelById(@RequestParam("NovelId") int NovelId) {
+
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        try {
+
+            Novel novel = appManagerService.getNovelById(NovelId);
+
+            resultJson.putPOJO("data", novel);
+
+
+        } catch (Exception ex) {
+
+        }
 
         return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
 

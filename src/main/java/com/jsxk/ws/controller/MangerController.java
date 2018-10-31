@@ -118,7 +118,7 @@ public class MangerController {
     }
 
 
-    @RequestMapping("/getVoidesList")
+    @RequestMapping(value = "/getVoidesList", method = RequestMethod.POST)
     public String getVoidesList(@RequestBody VoidesQuery voidesQuery) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();

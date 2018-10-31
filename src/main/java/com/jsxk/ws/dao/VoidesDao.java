@@ -28,7 +28,7 @@ public interface VoidesDao {
     List<Voides> getVoidesList(VoidesQuery voidesQuery);
 
 
-    @Select("select t.`name` as `title`, t. volume as volume ,t.img as img ,t.isdisplay as isDispaly ,t.id as id ,t.url as url, IFNULL(s.id,0) as storeid from voides  t left join store s on t.id=s.voidesId where catalogid =#{CatalogueId}")
+    @Select("select t.`name` as `title`, t. volume as volume ,t.img as img ,t.isdisplay as isDispaly ,t.id as id ,t.url as url, IFNULL(s.id,0) as storeid from voides  t left join store s on t.id=s.voidesId where t.catalogid =#{CatalogueId} order By t.catalogid ")
     List<VoidesContent> getVoidesByCatatlogue(String CatalogueId, int state);
 
     @Select("select * from voides where id =#{id}")

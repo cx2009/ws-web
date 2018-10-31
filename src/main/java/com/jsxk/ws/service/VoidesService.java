@@ -23,4 +23,8 @@ public interface VoidesService {
 
     Boolean addVoidesNum(int voideId);
 
+
+
+
+
 }
