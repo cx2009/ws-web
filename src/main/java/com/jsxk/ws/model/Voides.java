@@ -33,7 +33,7 @@ public class Voides {
 
     private Boolean isStore;
 
-    private Boolean isDispaly;
+    private String isDispaly;
 
     private int numlook;
 

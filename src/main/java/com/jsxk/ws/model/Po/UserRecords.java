@@ -28,5 +28,9 @@ public class UserRecords {
 
     private int record;
 
+    private Date vipEndTime;
+
+    private String code;
+
 
 }

@@ -11,6 +11,7 @@ import com.jsxk.ws.common.errorcode.ErrorCodes;
 import com.jsxk.ws.model.Bo.LogIn;
 import com.jsxk.ws.model.Bo.UserRegit;
 import com.jsxk.ws.model.Initialization;
+import com.jsxk.ws.model.Po.UserTitie;
 import com.jsxk.ws.model.UserInfor;
 import com.jsxk.ws.service.UserServcie;
 import com.jsxk.ws.utils.ControllerUtils;
@@ -60,13 +61,17 @@ public class UserController {
             UserInfor userInfor = new UserInfor();
             userInfor.setPassworld(userRegit.getPassword());
             userInfor.setName(userRegit.getName());
-            userInfor.setState(0);
+            userInfor.setState(1);
             userInfor.setType(1);
             userInfor.setEmail(userRegit.getEmail());
             userInfor.setUserId(UUIDUtils.getUUID());
-            userInfor.setSex(userRegit.getSex());
+            userInfor.setSex(0);
             userInfor.setRegitCode(ShareCodeUtil.generateShortUuid());
             reults = userServcie.regitUser(userInfor);
+
+            String token = authManager.getToken(userInfor);
+            userServcie.updateTokentime(userInfor.getUserId(), token);
+            resultJson.put("token", token);
             resultJson.put("message", reults.getMessage());
             resultJson.put("state", reults.isSuccess());
 
@@ -174,9 +179,13 @@ public class UserController {
      */
 
     @RequestMapping(value = "/getuserInfo", method = RequestMethod.GET)
-    public String getUser() {
+    public String getUser(@RequestHeader("token") String token) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        UserTitie userTitie= userServcie.getUserInforByTOken(token);
+
+        resultJson.putPOJO("usertitle",userTitie);
 
         return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
 
@@ -210,6 +219,10 @@ public class UserController {
 
 
     }
+
+
+
+
 
 
 }

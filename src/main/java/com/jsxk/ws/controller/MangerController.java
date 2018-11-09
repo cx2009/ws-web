@@ -118,6 +118,20 @@ public class MangerController {
     }
 
 
+    @RequestMapping(value = "getVoidesById")
+    public  String getVoidesById(@RequestParam("id") int id){
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        Voides voides = voidesService.getVoidesById(id);
+
+        resultJson.putPOJO("video", voides);
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+
+    }
+
     @RequestMapping(value = "/getVoidesList", method = RequestMethod.POST)
     public String getVoidesList(@RequestBody VoidesQuery voidesQuery) {
 
@@ -139,6 +153,17 @@ public class MangerController {
 
         return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
 
+    }
+
+
+
+   // @RequestMapping(value = "/getVoidesList", method = RequestMethod.POST)
+    public String getvoielist(@RequestBody VoidesQuery voidesQuery){
+
+        
+
+
+        return  "hellworld";
     }
 
 

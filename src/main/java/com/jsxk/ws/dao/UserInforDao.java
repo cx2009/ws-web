@@ -3,6 +3,7 @@ package com.jsxk.ws.dao;
 
 import com.jsxk.ws.model.Bo.UserQuery;
 import com.jsxk.ws.model.Po.UserRecords;
+import com.jsxk.ws.model.Po.UserTitie;
 import com.jsxk.ws.model.UserInfor;
 import org.apache.ibatis.annotations.*;
 import org.joda.time.DateTime;
@@ -25,12 +26,13 @@ public interface UserInforDao {
     @Select("select count(1) from user_infor where userid= #{userId} and passworld= #{passworld}")
     int chenckuserPwd(UserInfor userInfor);
 
-    @Select({"<script>SELECT t.id, t.userid,t.NAME,t.type,t.state,t.createtime,IFNULL(m.amount,0) as amount,IFNULL(m.record,0) as record\n" +
-            "FROM user_infor t LEFT JOIN consumptio_record m ON t.userid = m.userid  where 1=1 " +
-            "<if test =\"name !=null and name !='' \">and name=#{name}</if>" +
-            "<if test =\"type !=null and type != 3 \">and type=#{type}</if>" +
-            "<if test =\"state !=null and state != 2 \">and state=#{state}</if>" +
-            " and createtime between  #{starTime} and #{endTime}" +
+    @Select({"<script>SELECT t.id,t.typetime as vipEndTime, t.userid,t.NAME,t.type,t.state,t.createtime,IFNULL(m.amount,0) as amount,IFNULL(m.record,0) as record\n" +
+            "FROM user_infor t LEFT JOIN consumptio_record m ON t.userid = m.userid  where role=0 " +
+            "<if test =\"name !=null and name !='' \">and t.name=#{name}</if>" +
+            "<if test =\"type !=null and type != 3 \">and t.type=#{type}</if>" +
+            "<if test =\"state !=null and state != 2 \">and t.state=#{state}</if>" +
+            "<if test =\"starTime !=null and starTime!= '' \">and t.createtime &gt;= #{starTime}</if>"+
+            "<if test =\"endTime !=null and endTime!= '' \">and t.createtime  &lt;= #{endTime}</if>"+
             " </script>"})
     List<UserRecords> getUserRecordByQuery(UserQuery userQuery);
 
@@ -60,6 +62,10 @@ public interface UserInforDao {
 
     @Select("select * from user_infor where email=#{userid} LIMIT 1")
     UserInfor getUserinforByLoginId(String userid);
+
+    @Select("select userid, email ,typetime as endtime ,name  from user_infor where token=#{token}")
+    UserTitie getUserTitleByToken(String token);
+
 
 
 }

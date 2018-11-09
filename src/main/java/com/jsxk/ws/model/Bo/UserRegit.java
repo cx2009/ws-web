@@ -29,8 +29,8 @@ public class UserRegit {
 
     private String code;
 
-    @NotEmpty(message = "性别不能为空！")
-    private int sex;
+   // @NotEmpty(message = "性别不能为空！")
+   // private int sex;
 
     // @NotEmpty(message = "登陆名不能为空！")
 

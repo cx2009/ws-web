@@ -11,7 +11,7 @@ import java.util.List;
 public interface CatalogueDao {
 
 
-    @Insert("insert into catalogue (name ,parentId,indexs,cover,desc)values (#{name},#{parentId},#{indexs},#{cover},#{desc})")
+    @Insert("insert into catalogue (name ,parentId,indexs,cover,described)values (#{name},#{parentId},#{indexs},#{cover},#{described})")
     int addCatalogue(Catalogue catalogue);
 
     @Delete("delete from catalogue where id =#{id}")
@@ -24,7 +24,7 @@ public interface CatalogueDao {
     @Select("select * from catalogue where parentid =#{parentid} order by indexs")
     List<Catalogue> getCatalogueListByparentId(@Param("parentid") int parentid);
 
-    @Update("update catalogue set name=#{name}, parentId=#{parentId},indexs=#{indexs} where id =#{id}")
+    @Update("update catalogue set name=#{name},indexs=#{indexs} where id =#{id}")
     int editCatalogue(Catalogue catalogue);
 
     @Select("select * from catalogue where parentid =#{parentId}")

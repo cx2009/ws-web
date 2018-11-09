@@ -21,5 +21,7 @@ public class Initialization {
 
     private int type;
 
+    private  String remark;
+
 
 }

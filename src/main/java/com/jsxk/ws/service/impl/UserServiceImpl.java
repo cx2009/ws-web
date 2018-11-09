@@ -1,11 +1,14 @@
 package com.jsxk.ws.service.impl;
 
 import com.jsxk.ws.common.Reults;
+import com.jsxk.ws.dao.DistributorDao;
 import com.jsxk.ws.dao.InitializationDao;
 import com.jsxk.ws.dao.UserInforDao;
 import com.jsxk.ws.model.Bo.UserQuery;
+import com.jsxk.ws.model.Distributor;
 import com.jsxk.ws.model.Initialization;
 import com.jsxk.ws.model.Po.UserRecords;
+import com.jsxk.ws.model.Po.UserTitie;
 import com.jsxk.ws.model.UserInfor;
 import com.jsxk.ws.service.UserServcie;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +29,9 @@ public class UserServiceImpl implements UserServcie {
 
     @Autowired
     private InitializationDao initializationDao;
+
+    @Autowired
+    private DistributorDao distributorDao;
 
     @Override
     public Reults changePwd(String newPwd, UserInfor userInfor) {
@@ -244,6 +250,33 @@ public class UserServiceImpl implements UserServcie {
         }
 
         return  initializationDao.getInitialization(type);
+    }
+
+    @Override
+    public UserTitie getUserInforByTOken(String token) {
+        return  userInforDao.getUserTitleByToken(token);
+    }
+
+    @Override
+    public boolean addInitialization(Initialization type) {
+
+
+       return  initializationDao.addnitialization(type)>0;
+    }
+
+    @Override
+    public List<Initialization> getInitialization() {
+        return  initializationDao.getLastInitialization();
+    }
+
+    @Override
+    public Boolean addDistributor(Distributor distributor) {
+        return distributorDao.addDistributor(distributor)>0 ;
+    }
+
+    @Override
+    public List<Distributor> getDistributor() {
+        return distributorDao.getDistributor();
     }
 
 

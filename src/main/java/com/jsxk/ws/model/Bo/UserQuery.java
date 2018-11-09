@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -20,11 +21,38 @@ public class UserQuery {
 
     private int state;
 
-    private Date starTime;
+    public void setStarTime(String starTime) {
+        if(starTime==null||starTime=="")
+        {
 
-    private Date endTime;
+            this.starTime=null;
+            return;
+
+        }
+
+        this.starTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.valueOf(starTime) );
+
+    }
+
+    private String starTime;
+
+    public void setEndTime(String endTime) {
+        if(endTime==null||endTime=="")
+        {
+
+            this.endTime=null;
+            return;
+
+        }
+
+        this.endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.valueOf(endTime) );
+
+    }
+
+    private String endTime;
 
     private  int pageNum;
+
 
 
 }

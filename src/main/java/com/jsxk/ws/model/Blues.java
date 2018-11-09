@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Blues {
 
-
     private int id;
 
     private String url;
 
     private int indexs;
+
+    private  int moduleid;
+
+    private  String module;
 }
