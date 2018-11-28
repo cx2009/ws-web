@@ -8,6 +8,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.jsxk.ws.common.errorcode.ErrorCodes;
 import com.jsxk.ws.model.Bo.VoidesQuery;
+import com.jsxk.ws.model.Po.VoidesCatalog;
 import com.jsxk.ws.model.Voides;
 import com.jsxk.ws.service.VoidesService;
 import com.jsxk.ws.utils.ControllerUtils;
@@ -123,7 +124,7 @@ public class MangerController {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
 
-        Voides voides = voidesService.getVoidesById(id);
+        VoidesCatalog voides = voidesService.getVoidesCatalogById(id);
 
         resultJson.putPOJO("video", voides);
 

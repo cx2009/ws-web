@@ -15,7 +15,7 @@ public interface InitializationDao {
     @Select("select * from initialization  where type=#{type} order by createtime limit 1")
     Initialization getInitialization(int type);
 
-    @Insert("insert into initialization( domain,version,versionurl,necessary,type,remark) vaule （#{domain},#{version},#{versionurl},#{necessary},#{type},#{remark}）")
+    @Insert("insert into initialization (domain,versions,versionurl,necessary,type,remark) value (#{domain},#{versions},#{versionurl},#{necessary},#{type},#{remark})")
     int addnitialization(Initialization initialization);
 
 

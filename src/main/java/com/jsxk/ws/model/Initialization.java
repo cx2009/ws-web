@@ -13,7 +13,7 @@ public class Initialization {
 
     private String domain;
 
-    private String version;
+    private String versions;
 
     private String versionurl;
 

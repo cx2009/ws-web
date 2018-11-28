@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.jsxk.ws.common.ShareCodeUtil;
 import com.jsxk.ws.common.errorcode.ErrorCodes;
 import com.jsxk.ws.model.AppManager;
 import com.jsxk.ws.model.Distributor;
@@ -214,6 +215,9 @@ public class AppMangerController {
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
         resultJson.put("state", false);
         resultJson.put("message", "添加错误");
+
+        distributor.setCode(ShareCodeUtil.getRandomCode(6));
+        
 
         boolean result=userServcie.addDistributor(distributor);
 

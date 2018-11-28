@@ -1,10 +1,7 @@
 package com.jsxk.ws.dao;
 
 import com.jsxk.ws.model.Store;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -13,15 +10,15 @@ public interface StoreDao {
 
 
     @Insert("insert into store (voidesId,userid) values(#{voidesId},#{userId})")
-    int addStore(int voidesId, int userId);
+    int addStore(@Param("voidesId")String voidesId,@Param("userId") String userId);
 
     @Select("select * from store where userid=#{userId}")
-    List<Store> getStoreListByuserId(int userId);
+    List<Store> getStoreListByuserId(@Param("userId") String userId);
 
-    @Delete("delete form store where userid=#{userId} and voideId=#{voideId}")
-    int deletStore(int voideId, int userId);
+    @Delete("DELETE from store where userid=#{userId} and voidesId=#{voideId}")
+    int deletStore(@Param("voideId") String voideId, @Param("userId") String userId);
 
-    @Select("select count(1) from store where voidesId=? and  userid=?")
-    int getStore(int voidesId, int userId);
+    @Select("select count(1) from store where voidesId=#{voidesId} and  userid=#{userId}")
+    int getStore(@Param("voidesId") String voidesId,@Param("userId") String userId);
 
 }

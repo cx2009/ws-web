@@ -73,13 +73,13 @@ public class AuthManager {
 
     public UserInfor getUserInfoByToken(HttpServletRequest request) {
 
-        /*
+
         String token = request.getHeader("token");
 
         String userId = parseJWT(token);
 
-        **/
-        return userServcie.getUserInforByuserId("1");
+
+        return userServcie.getUserInforByuserId(userId);
 
 
     }
@@ -91,6 +91,24 @@ public class AuthManager {
                 .parseClaimsJws(jwt).getBody();
 
         return claims.getId();
+
+    }
+
+    public Boolean TokenExpreTime(String jwt) {
+
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary("miyao"))
+                .parseClaimsJws(jwt).getBody();
+
+        if (claims.getExpiration().before(new Date())) {
+
+
+            return false;
+        }
+
+
+        return true;
+
 
     }
 }

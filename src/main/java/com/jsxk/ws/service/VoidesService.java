@@ -2,6 +2,7 @@ package com.jsxk.ws.service;
 
 import com.jsxk.ws.model.Bo.VoidesQuery;
 import com.jsxk.ws.model.Order;
+import com.jsxk.ws.model.Po.VoidesCatalog;
 import com.jsxk.ws.model.Voides;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public interface VoidesService {
     List<Voides> getVoidesByCatalogId(int catalogId);
 
     Boolean addVoidesNum(int voideId);
+
+
+    VoidesCatalog getVoidesCatalogById(int id);
 
 
 

@@ -52,7 +52,7 @@ public interface UserInforDao {
     @Select("select count(1) from user_infor where email=#{eamil}")
     int checkuserId(String email);
 
-    @Update("update user_infor set token=#{token} where userId=#{userid}")
+    @Update("update user_infor set token=#{token} where email=#{userid}")
     int updateTokenByuserId(@Param("token") String token, @Param("userid") String userid);
 
 

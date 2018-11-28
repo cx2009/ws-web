@@ -11,7 +11,7 @@ import java.util.List;
 public interface DistributorDao {
 
 
-    @Insert("insert into Distributor (pid,code,channel,state)value(?,?,?,?)")
+    @Insert("insert into Distributor (pid,code,channel,state)value(#{pid},#{code},#{channel},#{state})")
     int addDistributor(Distributor distributor);
 
 

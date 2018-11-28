@@ -24,28 +24,29 @@ public class UserContentServiceImpl implements UserContentService {
     @Override
     public List<VoidesContent> getContetnList(String catalogue, int state) {
 
-        return voidesDao.getVoidesByCatatlogue(catalogue,state);
+        return voidesDao.getVoidesByCatatlogue(catalogue);
     }
 
     @Override
-    public boolean addStore(int voidesId, int userId) {
+    public boolean addStore(String voidesId, String userId) {
         return storeDao.addStore(voidesId, userId) > 0;
     }
 
     @Override
-    public boolean deletStore(int voidesId, int userId) {
+    public boolean deletStore(String voidesId, String userId) {
         return storeDao.deletStore(voidesId, userId) > 0;
     }
 
     @Override
-    public List<Store> getStore(int userId) {
+    public List<Store> getStore(String userId) {
         return storeDao.getStoreListByuserId(userId);
     }
 
     @Override
-    public Boolean modifyStore(int voidesId, int userId) {
+    public Boolean modifyStore(String voidesId, String userId) {
 
-        if (storeDao.getStore(voidesId, userId) > 0) {
+        int count=storeDao.getStore(voidesId, userId);
+        if (count <= 0) {
             return storeDao.addStore(voidesId, userId) > 0;
         } else {
 

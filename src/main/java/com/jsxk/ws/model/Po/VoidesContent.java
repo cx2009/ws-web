@@ -23,7 +23,7 @@ public class VoidesContent {
 
     private int id;
 
-   // private String url;
+    // private String url;
 
     //是否收藏
 
@@ -33,6 +33,7 @@ public class VoidesContent {
     private Boolean isDispaly;
 
 
+    private String label;
 
 
 }

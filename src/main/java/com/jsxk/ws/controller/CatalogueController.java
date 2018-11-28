@@ -1,11 +1,15 @@
 package com.jsxk.ws.controller;
 
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.jsxk.ws.common.AWSS3Util;
 import com.jsxk.ws.common.errorcode.ErrorCodes;
 import com.jsxk.ws.model.Catalogue;
+import com.jsxk.ws.model.Po.CataList;
+import com.jsxk.ws.model.Po.catalogItem;
 import com.jsxk.ws.service.CatalogueService;
 import com.jsxk.ws.utils.ControllerUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.Date;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -203,33 +209,38 @@ public class CatalogueController {
             // 获取文件名
             String fileName = file.getOriginalFilename();
 
-            String filestemp="";
+            String filestemp = "";
             Random rand = new Random();
 
-            filestemp+=rand.nextInt(10000)+new Date().toString();
+            filestemp += rand.nextInt(10000) + Calendar.getInstance().getTimeInMillis();
 
             log.info("上传的文件名为：" + fileName);
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             log.info("文件的后缀名为：" + suffixName);
 
-            fileName=filestemp+suffixName;
-            // 设置文件存储路径
-            String filePath = "/home/OTA/";
-            String path = filePath + fileName;
-            File dest = new File(path);
-            // 检测是否存在目录
-            if (!dest.getParentFile().exists()) {
-                dest.getParentFile().mkdirs();// 新建文件夹
-            }
-            file.transferTo(dest);// 文件写入
+            fileName = filestemp + suffixName;
+
+            ObjectMetadata metadata = new ObjectMetadata();
+
+            metadata.setContentType(AWSS3Util.getContentTypeByFileName(suffixName));//目前只
+
+            InputStream inputStream = file.getInputStream();
+            InputStreamReader is = new InputStreamReader(inputStream, "utf-8");
+
+            AWSS3Util util = AWSS3Util.getInstance(suffixName);
+
+            String url = util.putObject(inputStream, fileName, true, metadata);
+            url = url.replaceAll("\"", "/");
             resultJson.put("state", true);
             resultJson.put("message", "上传成功！");
-            resultJson.put("url", "47.150.50.221/OTA/" + fileName);
+            resultJson.put("url", url);
             return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -238,11 +249,11 @@ public class CatalogueController {
 
 
     //文件下载相关代码
-    @RequestMapping(value = "/downloadImage",method = RequestMethod.GET)
+    @RequestMapping(value = "/downloadImage", method = RequestMethod.GET)
     public String downloadImage(String imageName, HttpServletRequest request, HttpServletResponse response) {
         //String fileName = "123.JPG";
-        log.debug("the imageName is : "+imageName);
-        String fileUrl = "/home/OTA/"+imageName;
+        log.debug("the imageName is : " + imageName);
+        String fileUrl = "/home/OTA/" + imageName;
         if (fileUrl != null) {
             //当前是从该工程的WEB-INF//File//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
            /* String realPath = request.getServletContext().getRealPath(
@@ -290,8 +301,64 @@ public class CatalogueController {
     }
 
 
+    @RequestMapping(value = "/getcatalogs")
+    public String getCatalogList() {
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        try {
+            List<Catalogue> catalogues = catalogueService.getCatalogueList();
+
+            ArrayList<CataList> catalogueArrayList = new ArrayList<>();
+
+            for (Catalogue cataitme : catalogues) {
 
 
+                List<Catalogue> catalogueList = catalogueService.getCatalogueListSecond(cataitme.getId());
+
+                CataList cataList = new CataList();
+
+                cataList.setId(cataitme.getId());
+                cataList.setName(cataitme.getName());
+                List<catalogItem> catalogItems = new ArrayList<>();
+                for (Catalogue catalogue : catalogueList) {
+
+
+                    List<Catalogue> catalogueList1 = catalogueService.getCatalogueListSecond(catalogue.getId());
+                    List<catalogItem> catalogItemstem = new ArrayList<>();
+
+                    for (Catalogue itme : catalogueList1) {
+                        catalogItem ITEM = new catalogItem();
+
+                        ITEM.setId(itme.getId());
+                        ITEM.setName(itme.getName());
+                        catalogItemstem.add(ITEM);
+                    }
+                    catalogItem catalogItem = new catalogItem();
+                    catalogItem.setId(catalogue.getId());
+                    catalogItem.setName(catalogue.getName());
+                    catalogItem.setChildren(catalogItemstem);
+                    catalogItems.add(catalogItem);
+
+                }
+
+                cataList.setChildren(catalogItems);
+
+                catalogueArrayList.add(cataList);
+
+            }
+
+            resultJson.putPOJO("data", catalogueArrayList);
+            return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+        } catch (Exception ex) {
+
+            log.error(ex + "获取列表错误！");
+
+        }
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+    }
 
 
 }

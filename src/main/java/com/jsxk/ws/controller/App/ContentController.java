@@ -146,7 +146,7 @@ public class ContentController {
 
 
     @RequestMapping("/modifystore")
-    public String addStore(@RequestParam("voideId") int voideId, HttpServletRequest request) {
+    public String addStore(@RequestParam("voideId") String voideId, HttpServletRequest request) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
 
@@ -155,7 +155,7 @@ public class ContentController {
 
         resultJson.put("state", false);
 
-        int userId = autowired.getUserInfoByToken(request).getId();
+        String userId =String.valueOf(autowired.getUserInfoByToken(request).getId()) ;
 
         try {
 

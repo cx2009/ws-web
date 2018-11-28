@@ -11,13 +11,13 @@ public interface UserContentService {
     List<VoidesContent> getContetnList(String catalogId, int state);
 
 
-    boolean addStore(int voidesId, int userId);
+    boolean addStore(String voidesId, String userId);
 
-    boolean deletStore(int voidesId, int userId);
+    boolean deletStore(String voidesId, String userId);
 
-    List<Store> getStore(int userId);
+    List<Store> getStore(String userId);
 
-    Boolean modifyStore(int voidesId, int userId);
+    Boolean modifyStore(String voidesId, String userId);
 
 
 

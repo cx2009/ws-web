@@ -3,6 +3,7 @@ package com.jsxk.ws.service.impl;
 import com.jsxk.ws.dao.VoidesDao;
 import com.jsxk.ws.model.Bo.VoidesQuery;
 import com.jsxk.ws.model.Order;
+import com.jsxk.ws.model.Po.VoidesCatalog;
 import com.jsxk.ws.model.Voides;
 import com.jsxk.ws.service.VoidesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,11 @@ public class VoidesServiceImpl implements VoidesService {
     @Override
     public Boolean addVoidesNum(int voideId) {
         return voidesDao.AddVoidesNum(voideId) > 0;
+    }
+
+    @Override
+    public VoidesCatalog getVoidesCatalogById(int id) {
+        return voidesDao.getVoidesCatalogById(id);
     }
 
 
