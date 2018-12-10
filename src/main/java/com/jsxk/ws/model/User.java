@@ -6,12 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfor {
-
+public class User {
 
     private int id;
     private String userId;
@@ -33,7 +31,13 @@ public class UserInfor {
     private String regitCode;
 
 
-    private Date typetime;
+
+
+
+
+
+
+
 
 
 }

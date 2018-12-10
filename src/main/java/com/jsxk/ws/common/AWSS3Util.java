@@ -38,8 +38,8 @@ public class AWSS3Util {
      * @return String        文件访问url
      * @throws FileNotFoundException
      */
-    public String putObject(String filePath, String key, boolean isPub,ObjectMetadata metadata) throws FileNotFoundException {
-        return putObject(new File(filePath), key, isPub,metadata);
+    public String putObject(String filePath, String key, boolean isPub, ObjectMetadata metadata) throws FileNotFoundException {
+        return putObject(new File(filePath), key, isPub, metadata);
     }
 
     /**
@@ -49,8 +49,8 @@ public class AWSS3Util {
      * @return String    文件访问url
      * @throws FileNotFoundException
      */
-    public String putObject(File file, String key, boolean isPub,ObjectMetadata metadata) throws FileNotFoundException {
-        return putObject(new FileInputStream(file), key, isPub,metadata);
+    public String putObject(File file, String key, boolean isPub, ObjectMetadata metadata) throws FileNotFoundException {
+        return putObject(new FileInputStream(file), key, isPub, metadata);
     }
 
     /**
@@ -104,10 +104,10 @@ public class AWSS3Util {
     }
 
 
-    public  static String getContentTypeByFileName(String fileName) {
+    public static String getContentTypeByFileName(String fileName) {
         String CONTENT_TYPE_SVG = "image/jpeg";
 
-        switch (fileName) {
+        switch (fileName.toLowerCase()) {
 
             case ".jpg":
                 CONTENT_TYPE_SVG = "image/jpeg";

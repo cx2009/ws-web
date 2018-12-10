@@ -47,12 +47,15 @@ public interface UserServcie {
     boolean addInitialization(Initialization type);
 
 
-    List<Initialization>getInitialization();
+    List<Initialization> getInitialization();
 
 
     Boolean addDistributor(Distributor distributor);
 
-    List<Distributor>getDistributor();
+    List<Distributor> getDistributor();
+
+
+    Boolean editUserinfro(String userid, String endtime);
 
 
 }

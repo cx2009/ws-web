@@ -24,9 +24,9 @@ public class WsApplication {
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         //单个文件最大
-        factory.setMaxFileSize("400MB"); //KB,MB
+        factory.setMaxFileSize("800MB"); //KB,MB
         /// 设置总上传数据总大小
-        factory.setMaxRequestSize("800MB");
+        factory.setMaxRequestSize("1000MB");
         return factory.createMultipartConfig();
     }
 

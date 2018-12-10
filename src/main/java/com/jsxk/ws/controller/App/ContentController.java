@@ -144,6 +144,34 @@ public class ContentController {
 
     }
 
+    @RequestMapping("/getmystore")
+
+    public  String getMystore(HttpServletRequest request,@RequestParam("limit") int limit,@RequestParam("pageNum") int pageNum){
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+        try {
+
+
+            String userId = String.valueOf(autowired.getUserInfoByToken(request).getId());
+
+           // Page page = PageHelper.startPage(pageNum, limit);
+            List<VoidesContent>mystore= userContentService.getMyStore(userId);
+
+            //resultJson.put("pageNum", page.getPageNum());
+
+            //resultJson.put("pagesize", page.getPageSize());
+            resultJson.putPOJO("data", mystore);
+
+        }catch (Exception ex)
+        {
+
+
+        }
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+
+    }
+
 
     @RequestMapping("/modifystore")
     public String addStore(@RequestParam("voideId") String voideId, HttpServletRequest request) {
@@ -155,7 +183,7 @@ public class ContentController {
 
         resultJson.put("state", false);
 
-        String userId =String.valueOf(autowired.getUserInfoByToken(request).getId()) ;
+        String userId = String.valueOf(autowired.getUserInfoByToken(request).getId());
 
         try {
 
@@ -178,12 +206,23 @@ public class ContentController {
 
 
     @RequestMapping("/getVoideById")
-    public String getVoidesById(@RequestParam("id") int id, @RequestParam("limit") int limit) {
+    public String getVoidesById(@RequestParam("id") int id, @RequestParam("limit") int limit, HttpServletRequest request) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
         try {
 
             Voides voides = voidesService.getVoidesById(id);
+
+            voides.setIsStore(false);
+
+            String userId = String.valueOf(autowired.getUserInfoByToken(request).getId());
+
+            if (userId != null && userId != "") {
+
+                boolean res = userContentService.IsStore(String.valueOf(voides.getId()), userId);
+                voides.setIsStore(res);
+            }
+
 
             resultJson.putPOJO("video", voides);
 

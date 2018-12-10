@@ -6,10 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.nio.charset.Charset;
 import java.util.List;
@@ -17,9 +14,9 @@ import java.util.List;
 import static com.amazonaws.util.json.Jackson.getObjectMapper;
 
 
-@Configuration
-@EnableWebMvc
-@ComponentScan
+//@Configuration
+//@EnableWebMvc
+//@ComponentScan
 public class SessionInterceptor extends WebMvcConfigurationSupport {
 
     @Override
@@ -50,6 +47,7 @@ public class SessionInterceptor extends WebMvcConfigurationSupport {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         super.configureMessageConverters(converters);
 
+
         converters.add(responseBodyConverter());
         converters.add(messageConverter());
     }
@@ -61,6 +59,10 @@ public class SessionInterceptor extends WebMvcConfigurationSupport {
         return converter;
     }
 
-
+    @Override
+    public void configureContentNegotiation(
+            ContentNegotiationConfigurer configurer) {
+        configurer.favorPathExtension(false);
+    }
 
 }

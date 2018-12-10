@@ -1,16 +1,1 @@
-[INFO ] 2018-11-28 00:00:46,249 [http-nio-8080-exec-2]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
-[INFO ] 2018-11-28 00:04:36,156 [Thread-16]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
-[INFO ] 2018-11-28 00:04:51,046 [http-nio-8080-exec-1]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
-[INFO ] 2018-11-28 00:06:30,283 [Thread-14]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
-[INFO ] 2018-11-28 00:06:46,331 [http-nio-8080-exec-1]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
-[INFO ] 2018-11-28 00:09:43,354 [Thread-15]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
-[INFO ] 2018-11-28 00:09:58,830 [http-nio-8080-exec-2]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
-[INFO ] 2018-11-28 00:10:46,840 [Thread-14]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
-[INFO ] 2018-11-28 00:11:02,654 [http-nio-8080-exec-1]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
-[INFO ] 2018-11-28 00:12:09,198 [Thread-15]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
-[INFO ] 2018-11-28 00:12:26,538 [http-nio-8080-exec-1]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
-[INFO ] 2018-11-28 00:13:13,952 [Thread-17]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
-[INFO ] 2018-11-28 00:14:06,130 [http-nio-8080-exec-2]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
-[INFO ] 2018-11-28 00:14:20,740 [Thread-14]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
-[INFO ] 2018-11-28 00:15:05,859 [http-nio-8080-exec-2]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
-[INFO ] 2018-11-28 00:15:15,093 [Thread-16]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
+[INFO ] 2018-12-06 09:49:30,443 [Thread-18]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed

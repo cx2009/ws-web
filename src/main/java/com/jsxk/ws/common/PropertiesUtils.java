@@ -41,7 +41,7 @@ public class PropertiesUtils {
         properties.setProperty("aws.endpointUrl", "s3.dualstack.ap-northeast-1.amazonaws.com");
         properties.setProperty("aws.region", "ap-northeast-1");
 
-        properties.setProperty("aws.downloadUrl", "https://caomeivideo.s3.dualstack.ap-northeast-1.amazonaws.com/");
+        properties.setProperty("aws.downloadUrl", "");
 
         properties.setProperty("aws.region", "ap-northeast-1");
         properties.setProperty("aws.bucketName", "caomeivideo");

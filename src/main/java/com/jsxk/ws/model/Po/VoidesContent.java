@@ -14,16 +14,12 @@ public class VoidesContent {
 
     private String title;
 
-    //private String type;
-
-    //private String type_tips;
-
     // 观看次数
     private String volume;
 
     private int id;
 
-    // private String url;
+    private String url;
 
     //是否收藏
 

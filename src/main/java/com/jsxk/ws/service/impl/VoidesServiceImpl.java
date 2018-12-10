@@ -1,10 +1,12 @@
 package com.jsxk.ws.service.impl;
 
 import com.jsxk.ws.dao.VoidesDao;
+import com.jsxk.ws.dao.cousterDao;
 import com.jsxk.ws.model.Bo.VoidesQuery;
 import com.jsxk.ws.model.Order;
 import com.jsxk.ws.model.Po.VoidesCatalog;
 import com.jsxk.ws.model.Voides;
+import com.jsxk.ws.model.couster;
 import com.jsxk.ws.service.VoidesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,10 @@ public class VoidesServiceImpl implements VoidesService {
 
     @Autowired
     private VoidesDao voidesDao;
+
+    @Autowired
+
+    private cousterDao cousterDao;
 
     @Override
     public List<Voides> getVoidesList(VoidesQuery voidesQuery) {
@@ -58,6 +64,16 @@ public class VoidesServiceImpl implements VoidesService {
     @Override
     public VoidesCatalog getVoidesCatalogById(int id) {
         return voidesDao.getVoidesCatalogById(id);
+    }
+
+    @Override
+    public int editcouster(String url) {
+        return cousterDao.editcouster(url);
+    }
+
+    @Override
+    public couster getcouster() {
+        return cousterDao.getcouster();
     }
 
 

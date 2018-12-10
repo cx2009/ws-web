@@ -45,7 +45,7 @@ public class UserContentServiceImpl implements UserContentService {
     @Override
     public Boolean modifyStore(String voidesId, String userId) {
 
-        int count=storeDao.getStore(voidesId, userId);
+        int count = storeDao.getStore(voidesId, userId);
         if (count <= 0) {
             return storeDao.addStore(voidesId, userId) > 0;
         } else {
@@ -53,6 +53,16 @@ public class UserContentServiceImpl implements UserContentService {
             return storeDao.deletStore(voidesId, userId) > 0;
         }
 
+    }
+
+    @Override
+    public Boolean IsStore(String voideId, String userId) {
+        return storeDao.getStore(voideId, userId) > 0;
+    }
+
+    @Override
+    public List<VoidesContent> getMyStore(String userId) {
+        return storeDao.getVoidesByCatatlogue(userId);
     }
 
 

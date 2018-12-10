@@ -19,8 +19,10 @@ public interface UserContentService {
 
     Boolean modifyStore(String voidesId, String userId);
 
+    Boolean IsStore(String voideId, String userId);
 
 
+    List<VoidesContent> getMyStore(String userId);
 
 
 }

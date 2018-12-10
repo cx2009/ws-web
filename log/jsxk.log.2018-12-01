@@ -1,0 +1,57 @@
+[INFO ] 2018-12-01 23:02:47,610 [http-nio-8080-exec-2]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
+[DEBUG] 2018-12-01 23:06:13,078 [http-nio-8080-exec-7]:com.alibaba.druid.pool.DruidDataSource:?#?() skip not validate connection.
+[ERROR] 2018-12-01 23:06:56,792 [Druid-ConnectionPool-Create-810770892]:com.alibaba.druid.pool.DruidDataSource:?#?() create connection holder error
+java.sql.SQLException: Could not retrieve transaction read-only status from server
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:898)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:887)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:861)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:878)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:874)
+	at com.mysql.jdbc.ConnectionImpl.isReadOnly(ConnectionImpl.java:3556)
+	at com.mysql.jdbc.ConnectionImpl.isReadOnly(ConnectionImpl.java:3524)
+	at com.alibaba.druid.pool.DruidConnectionHolder.<init>(DruidConnectionHolder.java:143)
+	at com.alibaba.druid.pool.DruidConnectionHolder.<init>(DruidConnectionHolder.java:83)
+	at com.alibaba.druid.pool.DruidDataSource.put(DruidDataSource.java:1890)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2143)
+Caused by: java.sql.SQLException: ResultSet is from UPDATE. No Data.
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:898)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:887)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:861)
+	at com.mysql.jdbc.ResultSetImpl.next(ResultSetImpl.java:6302)
+	at com.mysql.jdbc.ConnectionImpl.isReadOnly(ConnectionImpl.java:3551)
+	... 5 more
+[INFO ] 2018-12-01 23:06:56,796 [Druid-ConnectionPool-Create-810770892]:com.alibaba.druid.pool.DruidDataSource:?#?() put physical connection to pool failed.
+[INFO ] 2018-12-01 23:07:11,951 [Thread-22]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
+[INFO ] 2018-12-01 23:07:45,364 [http-nio-8080-exec-2]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
+[INFO ] 2018-12-01 23:10:56,715 [Thread-14]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
+[INFO ] 2018-12-01 23:11:16,955 [http-nio-8080-exec-1]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
+[INFO ] 2018-12-01 23:19:12,616 [Thread-17]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
+[INFO ] 2018-12-01 23:24:46,732 [http-nio-8080-exec-2]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
+[INFO ] 2018-12-01 23:28:01,933 [Thread-18]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
+[INFO ] 2018-12-01 23:28:38,597 [http-nio-8080-exec-2]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
+[ERROR] 2018-12-01 23:28:43,944 [Druid-ConnectionPool-Create-532516141]:com.alibaba.druid.pool.DruidDataSource:?#?() create connection holder error
+java.sql.SQLException: Could not retrieve transaction read-only status from server
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:898)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:887)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:861)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:878)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:874)
+	at com.mysql.jdbc.ConnectionImpl.isReadOnly(ConnectionImpl.java:3556)
+	at com.mysql.jdbc.ConnectionImpl.isReadOnly(ConnectionImpl.java:3524)
+	at com.alibaba.druid.pool.DruidConnectionHolder.<init>(DruidConnectionHolder.java:143)
+	at com.alibaba.druid.pool.DruidConnectionHolder.<init>(DruidConnectionHolder.java:83)
+	at com.alibaba.druid.pool.DruidDataSource.put(DruidDataSource.java:1890)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2143)
+Caused by: java.sql.SQLException: ResultSet is from UPDATE. No Data.
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:898)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:887)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:861)
+	at com.mysql.jdbc.ResultSetImpl.next(ResultSetImpl.java:6302)
+	at com.mysql.jdbc.ConnectionImpl.isReadOnly(ConnectionImpl.java:3551)
+	... 5 more
+[INFO ] 2018-12-01 23:28:43,951 [Druid-ConnectionPool-Create-532516141]:com.alibaba.druid.pool.DruidDataSource:?#?() put physical connection to pool failed.
+[INFO ] 2018-12-01 23:29:29,487 [Thread-16]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed

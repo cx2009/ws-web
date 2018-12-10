@@ -12,16 +12,15 @@ import java.util.List;
 public interface InitializationDao {
 
 
-    @Select("select * from initialization  where type=#{type} order by createtime limit 1")
+    @Select("select * from initialization  where type=#{type} order by createtime desc limit 1")
     Initialization getInitialization(int type);
 
     @Insert("insert into initialization (domain,versions,versionurl,necessary,type,remark) value (#{domain},#{versions},#{versionurl},#{necessary},#{type},#{remark})")
     int addnitialization(Initialization initialization);
 
 
-
     @Select("select * from initialization  order by createtime")
-    List <Initialization> getLastInitialization();
+    List<Initialization> getLastInitialization();
 
 
 }

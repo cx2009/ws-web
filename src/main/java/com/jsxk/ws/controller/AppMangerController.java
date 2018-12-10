@@ -11,6 +11,7 @@ import com.jsxk.ws.model.Distributor;
 import com.jsxk.ws.model.Initialization;
 import com.jsxk.ws.model.Po.AppMangerList;
 import com.jsxk.ws.model.Po.AppMangers;
+import com.jsxk.ws.model.UserInfor;
 import com.jsxk.ws.service.AppManagerService;
 import com.jsxk.ws.service.UserServcie;
 import com.jsxk.ws.utils.ControllerUtils;
@@ -99,7 +100,6 @@ public class AppMangerController {
             Page page = PageHelper.startPage(pagenum, 20);
 
 
-
             List<AppMangerList> appMangers = appManagerService.getAppManagerListById();
             resultJson.putPOJO("data", appMangers);
             resultJson.put("pageNum", page.getPageNum());
@@ -169,37 +169,35 @@ public class AppMangerController {
 
     }
 
-    @RequestMapping(value = "/addversion",method = RequestMethod.POST)
-    public String addVerston(@RequestBody Initialization initialization){
+    @RequestMapping(value = "/addversion", method = RequestMethod.POST)
+    public String addVerston(@RequestBody Initialization initialization) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
         resultJson.put("state", false);
         resultJson.put("message", "添加错误");
 
-         boolean result=userServcie.addInitialization(initialization);
+        boolean result = userServcie.addInitialization(initialization);
 
-         if(result)
-         {
+        if (result) {
 
-             resultJson.put("state", true);
-             resultJson.put("message", "添加成功");
-         }
+            resultJson.put("state", true);
+            resultJson.put("message", "添加成功");
+        }
         return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
-
 
 
     }
 
 
     @RequestMapping("/getInitializationList")
-    public  String getInitializationList(@RequestParam("pageNum") int pageNum,@RequestParam("limit")int limit){
+    public String getInitializationList(@RequestParam("pageNum") int pageNum, @RequestParam("limit") int limit) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
 
         Page page = PageHelper.startPage(pageNum, limit);
 
-         List<Initialization>initializationList=userServcie.getInitialization();
-         resultJson.putPOJO("data",initializationList);
+        List<Initialization> initializationList = userServcie.getInitialization();
+        resultJson.putPOJO("data", initializationList);
         resultJson.put("pageNum", page.getPageNum());
         resultJson.put("pageSize", page.getPageSize());
 
@@ -210,19 +208,18 @@ public class AppMangerController {
 
     @RequestMapping("/addDistributor")
 
-    public String addDistributor(@RequestBody Distributor distributor){
+    public String addDistributor(@RequestBody Distributor distributor) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
         resultJson.put("state", false);
         resultJson.put("message", "添加错误");
 
         distributor.setCode(ShareCodeUtil.getRandomCode(6));
-        
 
-        boolean result=userServcie.addDistributor(distributor);
 
-        if(result)
-        {
+        boolean result = userServcie.addDistributor(distributor);
+
+        if (result) {
             resultJson.put("state", true);
             resultJson.put("message", "添加成功");
         }
@@ -232,16 +229,68 @@ public class AppMangerController {
     }
 
 
-
     @RequestMapping("/getDistributorList")
 
-    public String getDistributorList(){
+    public String getDistributorList() {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
 
-        List<Distributor>distributors=userServcie.getDistributor();
+        List<Distributor> distributors = userServcie.getDistributor();
 
-        resultJson.putPOJO("data",distributors);
+        resultJson.putPOJO("data", distributors);
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+
+    }
+
+
+    @RequestMapping("/getUserById")
+    public String getUserById(@RequestParam("userid") String userId) {
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        resultJson.put("state", false);
+
+        try {
+            UserInfor userInfor = userServcie.getUserInforByuserId(userId);
+
+            resultJson.put("state", true);
+
+            resultJson.putPOJO("data", userInfor);
+
+        } catch (Exception ex) {
+
+            log.error("获取失败！");
+
+
+            resultJson.putPOJO("data", ex);
+        }
+
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+
+    }
+
+
+    @RequestMapping("/editUser")
+    public String editUser(@RequestParam("userid") String userId, @RequestParam("endtime") String endtime) {
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+        resultJson.put("state", false);
+        resultJson.put("message", "添加错误");
+        try {
+            boolean result = userServcie.editUserinfro(userId, endtime);
+            if (result) {
+                resultJson.put("state", true);
+                resultJson.put("message", "添加成功");
+            }
+
+        } catch (Exception ex) {
+
+            log.error("更新视频信息错误！", ex);
+
+        }
 
         return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
 

@@ -154,6 +154,16 @@
             <artifactId>aws-java-sdk</artifactId>
             <version>1.11.257</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>ons-client</artifactId>
+            <version>1.7.0.Final</version>
+        </dependency>
 
     </dependencies>
 

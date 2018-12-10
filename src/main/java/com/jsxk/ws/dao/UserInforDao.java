@@ -31,8 +31,8 @@ public interface UserInforDao {
             "<if test =\"name !=null and name !='' \">and t.name=#{name}</if>" +
             "<if test =\"type !=null and type != 3 \">and t.type=#{type}</if>" +
             "<if test =\"state !=null and state != 2 \">and t.state=#{state}</if>" +
-            "<if test =\"starTime !=null and starTime!= '' \">and t.createtime &gt;= #{starTime}</if>"+
-            "<if test =\"endTime !=null and endTime!= '' \">and t.createtime  &lt;= #{endTime}</if>"+
+            "<if test =\"starTime !=null and starTime!= '' \">and t.createtime &gt;= #{starTime}</if>" +
+            "<if test =\"endTime !=null and endTime!= '' \">and t.createtime  &lt;= #{endTime}</if>" +
             " </script>"})
     List<UserRecords> getUserRecordByQuery(UserQuery userQuery);
 
@@ -66,6 +66,8 @@ public interface UserInforDao {
     @Select("select userid, email ,typetime as endtime ,name  from user_infor where token=#{token}")
     UserTitie getUserTitleByToken(String token);
 
+    @Update("update user_infor set typetime=#{endtime} where userid =#{userid}")
+    int editUserInfo(@Param("userid") String userid, @Param("endtime") String endtime);
 
 
 }

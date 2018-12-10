@@ -10,6 +10,7 @@ import com.jsxk.ws.common.errorcode.ErrorCodes;
 import com.jsxk.ws.model.Bo.VoidesQuery;
 import com.jsxk.ws.model.Po.VoidesCatalog;
 import com.jsxk.ws.model.Voides;
+import com.jsxk.ws.model.couster;
 import com.jsxk.ws.service.VoidesService;
 import com.jsxk.ws.utils.ControllerUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -83,6 +84,9 @@ public class MangerController {
 
             log.error("编辑错误{}", ex);
 
+            resultJson.put("message", ex.getMessage());
+
+
         }
         return ControllerUtils.renderControllerResult(ErrorCodes.systemError(), resultJson);
 
@@ -120,7 +124,7 @@ public class MangerController {
 
 
     @RequestMapping(value = "getVoidesById")
-    public  String getVoidesById(@RequestParam("id") int id){
+    public String getVoidesById(@RequestParam("id") int id) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
 
@@ -157,14 +161,55 @@ public class MangerController {
     }
 
 
-
-   // @RequestMapping(value = "/getVoidesList", method = RequestMethod.POST)
-    public String getvoielist(@RequestBody VoidesQuery voidesQuery){
-
-        
+    // @RequestMapping(value = "/getVoidesList", method = RequestMethod.POST)
+    public String getvoielist(@RequestBody VoidesQuery voidesQuery) {
 
 
-        return  "hellworld";
+        return "hellworld";
+    }
+
+
+    @RequestMapping("/editwximages")
+    public String editurl(@RequestParam("url") String url) {
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        resultJson.put("message", "添加错误");
+
+        resultJson.put("state", false);
+
+        try {
+
+            Boolean result = voidesService.editcouster(url) > 0;
+
+            if (result) {
+                resultJson.put("message", "添加成功");
+
+                resultJson.put("state", true);
+            }
+
+        } catch (Exception ex) {
+
+            log.error("更新错误", ex);
+        }
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+
+    }
+
+
+    @RequestMapping("getwximages")
+    public String getCoustor() {
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        couster couster = voidesService.getcouster();
+
+        resultJson.putPOJO("data", couster);
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+
     }
 
 

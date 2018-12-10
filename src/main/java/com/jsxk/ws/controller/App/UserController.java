@@ -70,7 +70,7 @@ public class UserController {
             reults = userServcie.regitUser(userInfor);
 
             String token = authManager.getToken(userInfor);
-            userServcie.updateTokentime(userInfor.getUserId(), token);
+            userServcie.updateTokentime(userInfor.getEmail(), token);
             resultJson.put("token", token);
             resultJson.put("message", reults.getMessage());
             resultJson.put("state", reults.isSuccess());
@@ -183,9 +183,9 @@ public class UserController {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
 
-        UserTitie userTitie= userServcie.getUserInforByTOken(token);
+        UserTitie userTitie = userServcie.getUserInforByTOken(token);
 
-        resultJson.putPOJO("usertitle",userTitie);
+        resultJson.putPOJO("usertitle", userTitie);
 
         return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
 
@@ -201,7 +201,7 @@ public class UserController {
         try {
 
             Initialization initialization = userServcie.getInitialization(type);
-            if(initialization ==null)
+            if (initialization == null)
 
             {
                 initialization = new Initialization();
@@ -219,10 +219,6 @@ public class UserController {
 
 
     }
-
-
-
-
 
 
 }

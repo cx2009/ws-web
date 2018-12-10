@@ -4,6 +4,7 @@ import com.jsxk.ws.model.Bo.VoidesQuery;
 import com.jsxk.ws.model.Order;
 import com.jsxk.ws.model.Po.VoidesCatalog;
 import com.jsxk.ws.model.Voides;
+import com.jsxk.ws.model.couster;
 
 import java.util.List;
 
@@ -27,8 +28,9 @@ public interface VoidesService {
 
     VoidesCatalog getVoidesCatalogById(int id);
 
+    int editcouster(String url);
 
-
+    couster getcouster();
 
 
 }

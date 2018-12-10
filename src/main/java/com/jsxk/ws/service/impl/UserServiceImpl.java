@@ -243,40 +243,45 @@ public class UserServiceImpl implements UserServcie {
 
         try {
 
-        }catch (Exception ex)
+        } catch (Exception ex)
 
         {
 
         }
 
-        return  initializationDao.getInitialization(type);
+        return initializationDao.getInitialization(type);
     }
 
     @Override
     public UserTitie getUserInforByTOken(String token) {
-        return  userInforDao.getUserTitleByToken(token);
+        return userInforDao.getUserTitleByToken(token);
     }
 
     @Override
     public boolean addInitialization(Initialization type) {
 
 
-       return  initializationDao.addnitialization(type)>0;
+        return initializationDao.addnitialization(type) > 0;
     }
 
     @Override
     public List<Initialization> getInitialization() {
-        return  initializationDao.getLastInitialization();
+        return initializationDao.getLastInitialization();
     }
 
     @Override
     public Boolean addDistributor(Distributor distributor) {
-        return distributorDao.addDistributor(distributor)>0 ;
+        return distributorDao.addDistributor(distributor) > 0;
     }
 
     @Override
     public List<Distributor> getDistributor() {
         return distributorDao.getDistributor();
+    }
+
+    @Override
+    public Boolean editUserinfro(String userid, String endtime) {
+        return userInforDao.editUserInfo(userid, endtime) > 0;
     }
 
 
