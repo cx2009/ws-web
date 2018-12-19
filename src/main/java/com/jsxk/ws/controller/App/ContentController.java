@@ -91,12 +91,12 @@ public class ContentController {
 
     /***
      *
-     * 获取内容列表页   //先写死
+     * 获取内容列表页
      * @return
      */
 
-    @RequestMapping("/getContentList")
-    public String getContentList(HttpServletRequest request, @RequestParam("pageNum") int pagenum, @RequestParam("limt") int limt, @RequestParam("catalogId") String catalogId) {
+    @RequestMapping("/getContentListByCataLogId")
+    public String getContentList(HttpServletRequest request, @RequestParam("pageNum") int pagenum, @RequestParam("limt") int limt, @RequestParam("catalogId") int catalogId) {
 
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
@@ -107,6 +107,32 @@ public class ContentController {
 
             Page page = PageHelper.startPage(pagenum, limt);
             List<VoidesContent> voideslist = userContentService.getContetnList(catalogId, userInfor.getState());
+            resultJson.putPOJO("data", voideslist);
+            resultJson.put("pageNum", page.getPageNum());
+            resultJson.put("pageSize", page.getPageSize());
+
+        } catch (Exception ex) {
+
+            log.error("查询列表错误{}", ex);
+        }
+
+        return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
+
+    }
+
+
+    @RequestMapping("/getContentList")
+    public String getContentListByCatalogId(HttpServletRequest request, @RequestParam("pageNum") int pagenum, @RequestParam("limt") int limt, @RequestParam("catalogId") int catalogId) {
+
+
+        ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
+
+        UserInfor userInfor = autowired.getUserInfoByToken(request);
+
+        try {
+
+            Page page = PageHelper.startPage(pagenum, limt);
+            List<VoidesContent> voideslist = userContentService.getContetnListByCatlog(catalogId, userInfor.getState());
             resultJson.putPOJO("data", voideslist);
             resultJson.put("pageNum", page.getPageNum());
             resultJson.put("pageSize", page.getPageSize());
@@ -146,7 +172,7 @@ public class ContentController {
 
     @RequestMapping("/getmystore")
 
-    public  String getMystore(HttpServletRequest request,@RequestParam("limit") int limit,@RequestParam("pageNum") int pageNum){
+    public String getMystore(HttpServletRequest request, @RequestParam("limit") int limit, @RequestParam("pageNum") int pageNum) {
 
         ObjectNode resultJson = OBJECT_MAPPER.createObjectNode();
         try {
@@ -154,16 +180,15 @@ public class ContentController {
 
             String userId = String.valueOf(autowired.getUserInfoByToken(request).getId());
 
-           // Page page = PageHelper.startPage(pageNum, limit);
-            List<VoidesContent>mystore= userContentService.getMyStore(userId);
+            // Page page = PageHelper.startPage(pageNum, limit);
+            List<VoidesContent> mystore = userContentService.getMyStore(userId);
 
             //resultJson.put("pageNum", page.getPageNum());
 
             //resultJson.put("pagesize", page.getPageSize());
             resultJson.putPOJO("data", mystore);
 
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
 
         }

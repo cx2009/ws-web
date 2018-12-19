@@ -22,9 +22,14 @@ public class UserContentServiceImpl implements UserContentService {
     StoreDao storeDao;
 
     @Override
-    public List<VoidesContent> getContetnList(String catalogue, int state) {
+    public List<VoidesContent> getContetnList(int catalogue, int state) {
 
         return voidesDao.getVoidesByCatatlogue(catalogue);
+    }
+
+    @Override
+    public List<VoidesContent> getContetnListByCatlog(int catalogueId, int orderId) {
+        return voidesDao.getVoidesByCatatlogueId(catalogueId, 2);
     }
 
     @Override

@@ -33,8 +33,19 @@ public interface VoidesDao {
     List<Voides> getVoidesList(VoidesQuery voidesQuery);
 
 
-    @Select("select t.id as id ,  t.`name` as `title`,t.label as label, t. volume as volume ,t.img as img ,t.isdisplay as isDispaly ,t.url as url, IFNULL(s.id,0) as storeid from voides  t left join store s on t.id=s.voidesId where t.catalogid =#{catalogId} order By t.catalogid ")
-    List<VoidesContent> getVoidesByCatatlogue(String catalogId);
+    @Select({"<script> select t.id as id ,  t.`name` as `title`,t.label as label, t. volume as volume ,t.img as img ,t.isdisplay as isDispaly ,t.url as url, IFNULL(s.id,0) as storeid from voides  t left join store s on t.id=s.voidesId " +
+            " <if test=\" catalogId ==1  \">  order By t.numlook desc </if> " +
+            "<if test=\" catalogId==2 \"> order By t.createtime desc </if>" +
+            " </script>"})
+    List<VoidesContent> getVoidesByCatatlogue(@Param("catalogId") int catalogId);
+
+
+    @Select({"<script> select t.id as id ,  t.`name` as `title`,t.label as label, t. volume as volume ,t.img as img ,t.isdisplay as isDispaly ,t.url as url, IFNULL(s.id,0) as storeid from voides  t left join store s on t.id=s.voidesId  where t.catalogid = #{catalogId}" +
+            " <if test=\" orderId ==1  \">  order By t.numlook </if> " +
+            "<if test=\" orderId==2 \"> order By t.createtime desc </if>" +
+            " </script>"})
+    List<VoidesContent> getVoidesByCatatlogueId(@Param("catalogId") int catalogId, @Param("orderId") int $orderId);
+
 
     @Select("select * from voides where id =#{id}")
     Voides getVoidesById(int id);

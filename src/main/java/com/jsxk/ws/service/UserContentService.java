@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface UserContentService {
 
-    List<VoidesContent> getContetnList(String catalogId, int state);
+    List<VoidesContent> getContetnList(int catalogId, int state);
+
+    List<VoidesContent> getContetnListByCatlog(int catalogId, int orderById);
 
 
     boolean addStore(String voidesId, String userId);
