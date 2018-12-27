@@ -24,7 +24,7 @@ public interface CatalogueDao {
     @Select("select * from catalogue where parentid =#{parentid} order by indexs")
     List<Catalogue> getCatalogueListByparentId(@Param("parentid") int parentid);
 
-    @Update("update catalogue set name=#{name},indexs=#{indexs} where id =#{id}")
+    @Update("update catalogue set name=#{name},indexs=#{indexs},cover=#{cover},described=#{described} where id =#{id}")
     int editCatalogue(Catalogue catalogue);
 
     @Select("select * from catalogue where parentid =#{parentId}")

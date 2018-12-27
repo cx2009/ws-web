@@ -1,0 +1,3 @@
+[INFO ] 2018-12-25 00:09:34,242 [Thread-16]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed
+[INFO ] 2018-12-25 00:10:28,099 [http-nio-8080-exec-1]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} inited
+[INFO ] 2018-12-25 00:11:34,682 [Thread-16]:com.alibaba.druid.pool.DruidDataSource:?#?() {dataSource-1} closed

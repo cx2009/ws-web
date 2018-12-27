@@ -1,11 +1,9 @@
 package com.jsxk.ws.controller;
 
-import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.jsxk.ws.common.AWSS3Util;
 import com.jsxk.ws.common.errorcode.ErrorCodes;
 import com.jsxk.ws.model.Catalogue;
 import com.jsxk.ws.model.Po.CataList;
@@ -22,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -31,6 +30,9 @@ import java.util.Random;
 @RestController
 @RequestMapping("/catalogue")
 public class CatalogueController {
+
+
+    private static String url = "";
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -221,20 +223,51 @@ public class CatalogueController {
 
             fileName = filestemp + suffixName;
 
-            ObjectMetadata metadata = new ObjectMetadata();
+            //ObjectMetadata metadata = new ObjectMetadata();
 
-            metadata.setContentType(AWSS3Util.getContentTypeByFileName(suffixName));//目前只
+            // metadata.setContentType(AWSS3Util.getContentTypeByFileName(suffixName));//目前只
 
-            InputStream inputStream = file.getInputStream();
-            InputStreamReader is = new InputStreamReader(inputStream, "utf-8");
+            // InputStream inputStream = file.getInputStream();
+            // InputStreamReader is = new InputStreamReader(inputStream, "utf-8");
 
-            AWSS3Util util = AWSS3Util.getInstance(suffixName);
+            // BufferedReader br = new BufferedReader(is);
+            String path = "/home/project/voides/" + fileName;
+            /*
+            File tempFile = new File(path);
+            if (!tempFile.exists()) {
+                tempFile.mkdirs();
+            }
+            */
 
-            String url = util.putObject(inputStream, fileName, true, metadata);
-            url = url.replaceAll("\"", "/");
+            file.transferTo(new File(path));
+            //FileOutputStream fos = new FileOutputStream(path);
+
+            // int length = 0;
+
+
+            /**
+             while ((length = is.read()) != -1) {
+
+             fos.write(length);
+
+             }
+
+             **/
+            // fos.flush();
+
+            //is.close();
+
+            //fos.close();
+
+            /**
+             AWSS3Util util = AWSS3Util.getInstance(suffixName);
+
+             String url = util.putObject(inputStream, fileName, true, metadata);
+             url = url.replaceAll("\"", "/");
+             **/
             resultJson.put("state", true);
             resultJson.put("message", "上传成功！");
-            resultJson.put("url", url);
+            resultJson.put("url", fileName);
             return ControllerUtils.renderControllerResult(ErrorCodes.success(), resultJson);
         } catch (IllegalStateException e) {
             e.printStackTrace();
@@ -242,6 +275,9 @@ public class CatalogueController {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
+
         }
 
         return ControllerUtils.renderControllerResult(ErrorCodes.systemError(), resultJson);
@@ -276,7 +312,7 @@ public class CatalogueController {
                         os.write(buffer, 0, i);
                         i = bis.read(buffer);
                     }
-                    System.out.println("success");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
